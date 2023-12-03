@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './simple-budget-ui.scss'
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 
