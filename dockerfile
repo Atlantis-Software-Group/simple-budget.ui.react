@@ -9,7 +9,11 @@ RUN npm ci
 
 COPY . .
 
+FROM build AS dev
 # Add `/app/node_modules/.bin` to $PATH
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 CMD ["npm", "start"]
+
+FROM build AS prod
+CMD ["npm", "build"]
