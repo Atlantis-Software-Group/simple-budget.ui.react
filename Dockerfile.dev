@@ -1,19 +1,24 @@
 FROM node:20.10.0-alpine AS build
 
+# Copy Certs
+RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
+
+WORKDIR /usr/local/share/ca-certificates
+COPY ./simple-budget/certs/ca ./
+
+#update the certificates for the container
+RUN update-ca-certificates 
+
 WORKDIR /usr/src/app
 
-COPY package.json ./
-COPY package-lock.json ./
+COPY ./ui.react/package.json ./
+COPY ./ui.react/package-lock.json ./
 
 RUN npm ci
 
-COPY . .
+COPY ./ui.react ./
 
-FROM build AS dev
 # Add `/app/node_modules/.bin` to $PATH
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 CMD ["npm", "start"]
-
-FROM build AS prod
-CMD ["npm", "build"]
