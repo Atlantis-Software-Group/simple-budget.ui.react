@@ -4,7 +4,9 @@ import { TransactionResponse } from "./TransactionResponse";
 export default class TransactionService {
     baseUrl: string = "https://localhost:3101/api";
     postUrl: string = `${this.baseUrl}/transaction/transaction`;
+
     async SaveTransaction(data: TransactionData) {
+        
         try {
             const response: Response = await fetch(this.postUrl, {
                 method: "POST",

@@ -1,0 +1,1 @@
+export type InputFieldType = "textArea" | "text" | "date"
